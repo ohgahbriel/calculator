@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Price Calculator</h1>
+    <p>Enter the base price, tax rate, and markup percentage to calculate the final price.</p>
+    <form id="calculator-form">
+        <label for="base-price">Base Price ($):</label><br>
+        <input type="number" id="base-price" step="0.01" required><br>
+        
+        <label for="tax-rate">Tax Rate (%):</label><br>
+        <input type="number" id="tax-rate" value="6.5" step="0.1" required><br>
+        
+        <label for="markup-percentage">Markup Percentage (%):</label><br>
+        <input type="number" id="markup-percentage" value="30" step="0.1" required><br>
+        
+        <button type="button" onclick="calculatePrice()">Calculate</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculatePrice() {
+            // Get input values
+            const basePrice = parseFloat(document.getElementById("base-price").value);
+            const taxRate = parseFloat(document.getElementById("tax-rate").value);
+            const markupPercentage = parseFloat(document.getElementById("markup-percentage").value);
+
+            // Calculate tax
+            const tax = basePrice * (taxRate / 100);
+            const subtotal = basePrice + tax;
+
+            // Calculate markup
+            const markup = subtotal * (markupPercentage / 100);
+            const finalPrice = subtotal + markup;
+
+            // Display the result
+            document.getElementById("result").innerHTML = `
+                <p>Tax Amount: $${tax.toFixed(2)}</p>
+                <p>Subtotal: $${subtotal.toFixed(2)}</p>
+                <p>Markup: $${markup.toFixed(2)}</p>
+                <p><strong>Final Price: $${finalPrice.toFixed(2)}</strong></p>
+            `;
+        }
+    </script>
+</body>
+</html>
